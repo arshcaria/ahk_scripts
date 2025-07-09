@@ -41,10 +41,8 @@
     local foundIndex := 0 ; 0 表示未找到
 
     ; 在列表中查找当前分辨率
-    for index, res in resolutions
-    {
-        if (res = currentRes)
-        {
+    for index, res in resolutions {
+        if (res = currentRes) {
             foundIndex := index
             break
         }
@@ -52,8 +50,7 @@
 
     local targetIndex := 1
     ; 如果找到了，计算下一个分辨率的索引
-    if (foundIndex != 0)
-    {
+    if (foundIndex != 0) {
         ; Mod 函数确保索引在 [0, length-1] 范围内, +1 后变为 [1, length], 实现循环
         targetIndex := Mod(foundIndex, resolutions.Length) + 1
     }
@@ -68,7 +65,7 @@
         SetTimer(() => ToolTip(), -2000)
         return
     }
-    
+
     ; 将字符串分割为宽度和高度
     local parts := StrSplit(resolutionString, "x")
     local width := parts[1]
@@ -86,4 +83,4 @@
     ToolTip("分辨率已切换至: " . resolutionString)
     ; 2秒后自动清除工具提示
     SetTimer(() => ToolTip(), -2000)
-} 
+}
