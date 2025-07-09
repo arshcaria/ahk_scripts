@@ -8,9 +8,10 @@ modifier := "!+" ; Alt+Shift
 resolutions := Map(
     "1", [2560, 1600],
     "2", [1920, 1200],
+    "Insert", [1922, 1297], ; for AnyDesk with a 1920x1200 client
     "3", [1680, 1050],
     "4", [1440, 900],
-    "5", [1280, 800]
+    "5", [1280, 800],
 )
 
 ; Create hotkeys dynamically
