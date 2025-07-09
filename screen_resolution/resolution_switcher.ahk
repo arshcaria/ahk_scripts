@@ -36,15 +36,39 @@
 
     ; --- 脚本核心逻辑，通常无需修改 ---
 
-    static currentIndex := 0
+    ; 获取当前屏幕分辨率
+    local currentRes := A_ScreenWidth . "x" . A_ScreenHeight
+    local foundIndex := 0 ; 0 表示未找到
 
-    ; 切换到下一个分辨率
-    ; Mod 函数确保索引在 [0, length-1] 范围内, +1 后变为 [1, length], 实现循环
-    currentIndex := Mod(currentIndex, resolutions.Length) + 1
+    ; 在列表中查找当前分辨率
+    for index, res in resolutions
+    {
+        if (res = currentRes)
+        {
+            foundIndex := index
+            break
+        }
+    }
 
-    ; 获取分辨率字符串，例如 "5120x2160"
-    local resolutionString := resolutions[currentIndex]
+    local targetIndex := 1
+    ; 如果找到了，计算下一个分辨率的索引
+    if (foundIndex != 0)
+    {
+        ; Mod 函数确保索引在 [0, length-1] 范围内, +1 后变为 [1, length], 实现循环
+        targetIndex := Mod(foundIndex, resolutions.Length) + 1
+    }
+    ; 如果没找到，targetIndex 默认为 1，即列表中的第一个
 
+    ; 获取目标分辨率字符串，例如 "5120x2160"
+    local resolutionString := resolutions[targetIndex]
+
+    ; 如果目标分辨率与当前分辨率相同（例如列表中只有一个分辨率），则无需操作
+    if (resolutionString = currentRes) {
+        ToolTip("当前已是目标分辨率: " . currentRes)
+        SetTimer(() => ToolTip(), -2000)
+        return
+    }
+    
     ; 将字符串分割为宽度和高度
     local parts := StrSplit(resolutionString, "x")
     local width := parts[1]
