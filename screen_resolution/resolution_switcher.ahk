@@ -4,7 +4,10 @@
 ^!+F12::
 {
     ; 分辨率列表: 每个分辨率是一个对象 {width: "宽度", height: "高度", bits: "色深(可选)", freq: "刷新率(可选)"}
-    resolutions := [{ width: "5120", height: "2160" }, { width: "3840", height: "2160" },]
+    resolutions := [
+        { width: "5120", height: "2160" }, 
+        { width: "3840", height: "2160" },
+    ]
 
     ; 获取当前分辨率
     currentWidth := A_ScreenWidth
